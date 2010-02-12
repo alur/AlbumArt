@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlbumArt", "AlbumArt.vcproj", "{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C09A8456-1469-4274-91D0-E6FEA893C926} = {C09A8456-1469-4274-91D0-E6FEA893C926}
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111} = {244EE88A-C11B-4E22-B8C3-6DDF7F04B111}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "id3lib", "id3lib\libprj\id3lib.vcproj", "{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C09A8456-1469-4274-91D0-E6FEA893C926} = {C09A8456-1469-4274-91D0-E6FEA893C926}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "zlib\prj\zlib.vcproj", "{C09A8456-1469-4274-91D0-E6FEA893C926}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		NASM Debug|Win32 = NASM Debug|Win32
+		NASM Release|Win32 = NASM Release|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.Debug|Win32.ActiveCfg = Debug|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.Debug|Win32.Build.0 = Debug|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.NASM Debug|Win32.ActiveCfg = Debug|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.NASM Debug|Win32.Build.0 = Debug|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.NASM Release|Win32.ActiveCfg = Release|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.NASM Release|Win32.Build.0 = Release|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.Release|Win32.ActiveCfg = Release|Win32
+		{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}.Release|Win32.Build.0 = Release|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.Debug|Win32.ActiveCfg = Debug|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.Debug|Win32.Build.0 = Debug|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.NASM Debug|Win32.ActiveCfg = Debug|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.NASM Debug|Win32.Build.0 = Debug|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.NASM Release|Win32.ActiveCfg = Release|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.NASM Release|Win32.Build.0 = Release|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.Release|Win32.ActiveCfg = Release|Win32
+		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}.Release|Win32.Build.0 = Release|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.Debug|Win32.Build.0 = Debug|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.NASM Debug|Win32.ActiveCfg = NASM Debug|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.NASM Debug|Win32.Build.0 = NASM Debug|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.NASM Release|Win32.ActiveCfg = NASM Release|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.NASM Release|Win32.Build.0 = NASM Release|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.Release|Win32.ActiveCfg = Release|Win32
+		{C09A8456-1469-4274-91D0-E6FEA893C926}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

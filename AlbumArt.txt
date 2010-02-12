@@ -1,0 +1,274 @@
+AlbumArt 1.5 by Alurcard2
+
+AlbumArt is intended to get cover art for the currently playing Winamp (or
+foobar) song. No other audio players are supported at this time.
+
+Note that if you plan to use this module with foobar you'll need a Winamp 
+emulation plugin that supports IPC_GET_PLAYING_FILENAME. I'd recommend 
+foo_vis_shpeck (http://www.hydrogenaudio.org/forums/index.php?showtopic=59388).
+It is also not a good idea to mix Winamp emulation modules as this module will
+simply find the top level Winamp window and use that.
+
+
+General Settings:
+-------------------------------------------------------------------------------
+*AlbumArt (STRING) [...]
+- Creates a number of AlbumArt groups. If no other groups are specified a group
+  named "AlbumArt" will be created.
+
+AlbumArtUpdateFrequency (INT)
+- How often, in milliseconds, to check if the current song has changed
+  Default: 100, Min: 10, Max: 2147483647
+  
+  
+General Evars:
+-------------------------------------------------------------------------------
+AlbumArtCurrentTrack
+- Position in the playlist (starting at 1).
+
+
+General Events:
+-------------------------------------------------------------------------------
+AlbumArtOnTrackChange
+- Fires when the playlist position changes.
+
+
+Group Settings:
+-------------------------------------------------------------------------------
+(group)ParsePath (STRING)
+- Path where AlbumArt should save a copy of the current artwork if it was
+  extracted from an ID3 tag. Omitting this setting will prevent AlbumArt from
+  scanning ID3 tags for cover art. If a relative path is given, the picture 
+  will be saved in $LSImageFolder$.
+  Default: ""
+  
+*(group)ParseType (STRING) [...]
+- Which types of images, in order of priority, to search for in the ID3 tag.
+  Possible values: Other, PNG32Icon, OtherIcon, CoverFront, CoverBack, 
+  LeafletPage, Media, LeadArtist, Artist, Conductor, Band, Composer, Lyricist, 
+  RecordingLocation, Recording, Performance, Video, Fish, Illustration,
+  ArtistLogo, and PublisherLogo. Any invalid values will be considered as 
+  "CoverFront".
+
+(group)NoArtPath (STRING)
+- Path to a picture that should be used if no cover art is found. If a
+  relative path is given, it is assumed to reside in $LSImageFolder$.
+  Default: ""
+
+*(group)CoverName (STRING) [...]
+- Filenames, in order of priority, that the module should search for in the
+  folder of the currently playing song. You can use * and ? as  wildcards.
+  * matches any characters (0 or more) and ? matches any single character. 
+  
+(group)NoCRC (BOOL)
+- If this is set to true AlbumArt will execute OnAlbumArtChanged.
+  Default: False
+  
+(group)TrackOffset (INTEGER)
+- Offset from the current track to get albumart for (1 = next track, -1 =
+  previous track).
+  Default: 0
+  
+(group)OutOfBoundsPath (STRING)
+- Path to a picture that should be used if the track is out of bounds. If a
+  relative path is given, it is assumed to reside in $LSImageFolder$.
+  Default: ""
+  
+(group)SearchFolderBeforeTag (BOOL)
+- Set to true to search for covers in the folder before searching through the
+  tag.
+  Default: False
+
+(group)AutoDownloadCoversTo (STRING)
+- If this is set AlbumArt will automatically attempt to download covers from
+  www.albumart.org when it can't find any albumart in other ways. Paths are
+  relative to the folder of the current song.
+  Default: ""
+
+
+Group Evars:
+-------------------------------------------------------------------------------
+(group)Path
+- The path to the current album art.
+
+(group)IsOutOfBounds
+- True when the track for the group is outside the playlist (this will only
+  happen with (group)TrackOffset set), false otherwise.
+  
+(group)CRC
+- The CRC of the current album cover if (group)NoCRC is false, "" otherwise.
+
+
+Group Events:
+-------------------------------------------------------------------------------
+(group)OnChange
+- Fires when the albumart has changed.
+
+(group)OnOutOfBounds
+- Fires when (group)IsOutOfBounds changes to true.
+
+(group)OnIntoBounds
+- Fires when (group)IsOutOfBounds changes to false.
+
+(group)OnDownloadStarted
+- Fires when a file has started downloading.
+
+(group)OnDownloadFinished
+- Fires when a cover has finished downloading.
+
+
+Bangs:
+-------------------------------------------------------------------------------
+!AlbumArtDebug
+- Shows the status of the module.
+
+!AlbumartSetUpdateFrequency (INT)
+- Changes the update frequency (AlbumArtUpdateFrequency).
+
+!AlbumArtCreate (STRING) [...]
+- Creates groups.
+
+!AlbumArtDestroy (STRING) [...]
+- Destroys groups.
+
+!AlbumArtSetNoCRC (GROUP) (BOOL or toggle)
+- Changes whether or not to check the CRC of covers.
+
+!AlbumArtSetNoArtPath (GROUP) (STRING)
+- Changes (group)NoArtPath.
+
+!AlbumArtSetParsePath (GROUP) (STRING)
+- Changes (group)ParsePath.
+
+!AlbumArtSetTrackOffset (GROUP) (INT)
+- Changes (group)TrackOffset.
+
+!AlbumArtSetOutOfBoundsPath (GROUP) (STRING)
+- Changes (group)OutOfBoundsPath.
+
+!AlbumArtSetSearchFolderBeforeTag (GROUP) (BOOL or toggle)
+- Changes (group)SearchFolderBeforeTag.
+
+!AlbumArtSetAutoDownloadCoversTo (GROUP) (STRING)
+- Changes (group)AutoDownloadCoversTo.
+
+!AlbumArtAddParseType (GROUP) (STRING) [...]
+- Adds some parse types.
+
+!AlbumArtDeleteParseType (GROUP) (STRING) [...]
+- Deletes some parse types. Use .all to delete all of them.
+
+!AlbumArtAddCoverName (GROUP) (STRING) [...]
+- Adds some cover names.
+
+!AlbumArtDeleteCoverName (GROUP) (STRING) [...]
+- Deletes some cover names. Use .all to delete all of theme.
+
+
+Sample Config (using xLabel to show the albumart):
+-------------------------------------------------------------------------------
+AlbumArtUpdateFrequency 100
+
+*AlbumArt Cover
+CoverParsePath "$ThemeDir$currentalbumart.jpg"
+CoverNoArtPath "noalbumart.jpg"
+*CoverCoverName folder.jpg cover.jpg albumart.jpg
+*CoverCoverName back.jpg "album art.png"
+*CoverParseType CoverFront Band
+CoverOnChange !ParseEvars !LabelRefresh Art ArtImage "%#CoverPath%#"
+
+*label Art
+ArtX -300
+ArtY 150
+ArtWidth 200
+ArtHeight 200
+ArtPaintingMode .image
+
+*AlbumArt Back
+BackParsePath "$ThemeDir$currentbackart.jpg"
+BackNoArtPath nobackart.jpg
+*BackCoverName back.jpg
+*BackParseType CoverBack
+BackOnChange !ParseEvars !LabelRefresh BackArt BackArtImage "%#BackPath%#"
+
+*label BackArt
+BackArtX -500
+BackArtY 150
+BackArtWidth 200
+BackArtHeight 200
+BackArtPaintingMode .image
+
+
+Changelog:
+-------------------------------------------------------------------------------
+v1.5 (2010-02-10)
+- Major source code cleanup.
+- Fixed unlikely problem where a cover would not be downloaded.
+- Added (group)CRC evar.
+- Events are now updated from their evars before they are executed.
+- Added !AlbumArtCreate and !AlbumArtDestroy.
+- Added some bang commands to change settings on the fly: 
+  !AlbumArtSetUpdateFrequency, !AlbumArtSetNoCRC, !AlbumArtSetNoArtPath,
+  !AlbumArtSetParsePath, !AlbumArtSetTrackOffset, !AlbumArtSetOutOfBoundsPath,
+  !AlbumArtSetSearchFolderBeforeTag, !AlbumArtSetAutoDownloadCoversTo,
+  !AlbumArtAddParseType, !AlbumArtDeleteParseType, !AlbumArtAddCoverName,
+  and !AlbumArtDeleteCoverName.
+
+v1.4 (2010-01-31)
+- Added (group)AutoDownloadCoversTo to automatically download missing covers.
+- Added (group)OnDownloadStarted and (group)OnDownloadFinished events.
+
+v1.3 (2010-01-24)
+ - Fixed potential problem with cover temporarily not updating.
+ - Added AlbumArtCurrentTrack evar which stores the playlist position.
+ - Added AlbumArtOnTrackChange event which fires when the track changes.
+ - Added (group)TrackOffset to get cover art for other playlist tracks.
+ - Added (group)IsOutOfBounds, which is true when the track for the group is 
+   outside the playlist.
+ - Added (group)OnOutOfBounds and (group)OnIntoBounds events which fire when
+   (group)IsOutOfBounds changes.
+ - Added (group)SearchFolderBeforeTag.
+ - Added support for FLAC tags.
+ 
+v1.2 (2010-01-20)
+ - Fixed the CPU usage going to 100% when Winamp isn't running, as well as in
+   some other, less common, circumstances.
+ - Added some sanity checking for AlbumArtUpdateFrequency [10 to 2147483647].
+ - Fixed problems when (group)ParsePath or (group)NoArtPath were blank.
+
+v1.1 (2010-01-17)
+ - *AlbumArtCoverName now supports wildcards (* and ?).
+ - folder.jpg is no longer added to the end of the AlbumArtCoverName list.
+ - Added *AlbumArtParseType.
+ - Fixed issue with relative paths.
+ - Added *AlbumArt.
+
+v1.0 (2010-01-17)
+ - AlbumArtOnChange is now only executed when the CRC-32 of the cover art has
+   changed. Added AlbumArtNoCRC to execute it everytime the track changes.
+ - Fixed documentation error (AlbumArtOnChange was OnAlbumArtChange).
+ - Removed id3lib.dll dependency.
+ - Fixed AlbumArtOnChange wouldn't execute on startup if no cover art was found.
+ - AlbumArtNoArtPath and AlbumArtParsePath now default to $LSImageFolder$ if 
+   they are given relative paths.
+ 
+v0.4 (2010-01-13)
+ - Added *AlbumArtCoverName.
+ - !refresh actually reloads settings now.
+ 
+v0.3 (2010-01-12)
+ - Fixed possible bug on pre-Vista systems.
+ - Fixed crash bug when extracting cover art from some files.
+ - AlbumArt now requires id3lib.dll to be in the LiteStep or System folder.
+ - Added bang command !AlbumArtDebug to help fix problems.
+ - AlbumArtPath will now be set to AlbumArtNoArtPath if any errors are
+   encountered.
+
+v0.2 (2009-12-29)
+ - Added the ability to find artwork in ID3 tags.
+ - AlbumArt can now use a default file if no cover art is found.
+ - Added AlbumArtNoArtPath, AlbumArtParsePath, AlbumArtUpdateFrequency.
+ - Hacked in a small fix for foobar2000.
+
+v0.1 (2009-12-27)
+ - Initial Release.
