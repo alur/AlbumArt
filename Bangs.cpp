@@ -126,7 +126,7 @@ void Bangs::SetNoCRC(HWND, LPCSTR pszArgs)
 		}
 
 		// Update the CRC32 value if necesary
-		if (gData->bNoCRC32)
+		if (!gData->bNoCRC32)
 		{
 			char szPath[MAX_LINE_LENGTH];
 			LiteStep::GetPrefixedRCLine(szPath, sizeof(szPath), gData->szPrefix, "Path", "");
