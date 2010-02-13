@@ -126,11 +126,16 @@ void Bangs::SetNoCRC(HWND, LPCSTR pszArgs)
 		}
 
 		// Update the CRC32 value if necesary
-		if (!gData->bNoCRC32)
+		if (gData->bNoCRC32)
 		{
 			char szPath[MAX_LINE_LENGTH];
 			LiteStep::GetPrefixedRCLine(szPath, sizeof(szPath), gData->szPrefix, "Path", "");
 			gData->crc = CRC32::crc32(szPath);
+			LiteStep::SetEvar(gData->szPrefix, "CRC", "%X", gData->crc);
+		}
+		else
+		{
+			LiteStep::SetEvar(gData->szPrefix, "CRC", "");
 		}
 	}
 }
@@ -483,3 +488,4 @@ void Bangs::DeleteCoverName(HWND, LPCSTR pszArgs)
 		}
 	}
 }
+
