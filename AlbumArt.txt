@@ -206,10 +206,11 @@ BackArtPaintingMode .image
 
 Changelog:
 -------------------------------------------------------------------------------
-v1.6 (2010-??-??)
-- Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo
-- Fixed !AlbumArtSetNoCRC not updating (group)CRC properly
-- Added !AlbumArtDownloadCover
+v1.6 (2010-02-13)
+- Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo which caused 
+  (group)AutoDownloadCoversTo (STRING) to be set to the NoArtPath.
+- Fixed !AlbumArtSetNoCRC not updating (group)CRC properly.
+- Added !AlbumArtDownloadCover.
 
 v1.5 (2010-02-10)
 - Major source code cleanup.
