@@ -338,7 +338,7 @@ void Bangs::SetAutoDownloadCoversTo(HWND, LPCSTR pszArgs)
 		LiteStep::GetPrefixedRCLine(szCoverPath, sizeof(szCoverPath), gData->szPrefix, "Path", "");
 		
 		// Update the AutoDownloadCoversTo path
-		StringCchCopy(gData->szNoArtPath, sizeof(gData->szNoArtPath), szToken);
+		StringCchCopy(gData->szDownloadPath, sizeof(gData->szDownloadPath), szToken);
 
 		// Check if the current cover is using the NoArtPath, and if so, try to download a new cover
 		if (_stricmp(szCoverPath, gData->szNoArtPath) == 0)
