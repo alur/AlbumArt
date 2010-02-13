@@ -212,7 +212,7 @@ v1.7 (2010-??-??)
 
 v1.6 (2010-02-13)
 - Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo which caused 
-  (group)AutoDownloadCoversTo (STRING) to be set to the NoArtPath.
+  (group)AutoDownloadCoversTo to be set to the NoArtPath.
 - Fixed !AlbumArtSetNoCRC not updating (group)CRC properly.
 - Added !AlbumArtDownloadCover.
 
