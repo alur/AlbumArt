@@ -8,15 +8,14 @@ GroupMap g_Groups;
 char g_szDebugMessage[MAX_LINE_LENGTH];
 char g_szOnTrackChange[MAX_LINE_LENGTH];
 int g_iCurrentTrack;
+int g_FoobarFix, g_FoobarCounter;
 extern HWND g_hParent, g_hwndMessageHandler;
 
 /*/
 TODO::
 
- - Add !AlbumArtDownloadCover [group] [file to save cover to, default=(group)AutoDownloadCoversTo]
  - Add (group)DownloadDimensions [min-width] [min-height] [max-width] [max-height]
  - Add (group)CoverWidth, (group)CoverHeight [EVARS]
- - Add bangs to configure all settings w/o recycling or refreshing
 
 /*/
 
@@ -36,6 +35,10 @@ void AlbumArt::LoadSettings (bool bIsRefresh)
 		uFrequency = USER_TIMER_MAXIMUM;
 	else if (uFrequency < USER_TIMER_MINIMUM)
 		uFrequency = USER_TIMER_MINIMUM;
+
+	// Foobar fix
+	g_FoobarFix = GetRCInt("AlbumArtFoobarFix", 0);
+	g_FoobarCounter = 0;
 
 	// Create all groups
 	char szLine[MAX_LINE_LENGTH], szToken[MAX_LINE_LENGTH];
@@ -193,6 +196,14 @@ void AlbumArt::UpdateInformation(bool bInitializing)
 		if (Track == g_iCurrentTrack)
 		{
 			return; // The track hasn't changed
+		}
+		else if (Track == 0 && g_FoobarFix != 0)
+		{
+			if (g_FoobarCounter++ < g_FoobarFix)
+			{
+				return;
+			}
+			g_FoobarCounter = 0;
 		}
 	}
 	g_iCurrentTrack = Track;
