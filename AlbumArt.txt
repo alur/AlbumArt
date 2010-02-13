@@ -1,4 +1,4 @@
-AlbumArt 1.6 by Alurcard2
+AlbumArt 1.7 by Alurcard2
 
 AlbumArt is intended to get cover art for the currently playing Winamp (or
 foobar) song. No other audio players are supported at this time.
@@ -206,6 +206,9 @@ BackArtPaintingMode .image
 
 Changelog:
 -------------------------------------------------------------------------------
+v1.7 (2010-??-??)
+- Added AlbumArtFoobarFix to alleviate some foobar related problems.
+
 v1.6 (2010-02-13)
 - Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo which caused 
   (group)AutoDownloadCoversTo (STRING) to be set to the NoArtPath.

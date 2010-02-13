@@ -1,7 +1,7 @@
 #include "main.h"
 
 // Constants
-const char g_rcsRevision[]	= "1.6";
+const char g_rcsRevision[]	= "1.7";
 const char g_szAppName[]	= "AlbumArt";
 const char g_szMsgHandler[]	= "LSAlbumArtManager";
 const UINT g_lsMessages[]	= {LM_GETREVID, LM_REFRESH, 0};
