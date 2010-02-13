@@ -164,6 +164,11 @@ Bangs:
 !AlbumArtDeleteCoverName (GROUP) (STRING) [...]
 - Deletes some cover names. Use .all to delete all of theme.
 
+!AlbumArtDownloadCover (GROUP or .none) (STRING) [STRING]
+- Downloads the cover for the first group and saves it in the path pointed to by
+  the first string. If group is set to .none you should specify a album name
+  as the 2nd string.
+
 
 Sample Config (using xLabel to show the albumart):
 -------------------------------------------------------------------------------
@@ -204,6 +209,7 @@ Changelog:
 v1.6 (2010-??-??)
 - Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo
 - Fixed !AlbumArtSetNoCRC not updating (group)CRC properly
+- Added !AlbumArtDownloadCover
 
 v1.5 (2010-02-10)
 - Major source code cleanup.

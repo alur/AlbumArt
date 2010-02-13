@@ -27,6 +27,7 @@ namespace Bangs
 		{"DeleteParseType", DeleteParseType},
 		{"AddCoverName", AddCoverName},
 		{"DeleteCoverName", DeleteCoverName},
+		{"DownloadCover", DownloadCover},
 		{NULL, NULL}
 	};
 }
@@ -489,3 +490,97 @@ void Bangs::DeleteCoverName(HWND, LPCSTR pszArgs)
 	}
 }
 
+// Manually download the cover art
+void Bangs::DownloadCover(HWND, LPCSTR pszArgs)
+{
+	char szToken[MAX_LINE_LENGTH], szSavePath[MAX_PATH], szAlbumName[MAX_LINE_LENGTH];
+	LPCSTR pszNext = pszArgs;
+	szSavePath[0] = szAlbumName[0] = 0;
+
+	// Get the group name (first token)
+	if (GetToken(pszNext, szToken, &pszNext, false))
+	{
+		if (_stricmp(szToken, ".none") == 0) // Group set to .none
+		{
+			// Get the path (2nd token) and albumname (3rd token)
+			if (GetToken(pszNext, szSavePath, &pszNext, false))
+			{
+				GetToken(pszNext, szAlbumName, &pszNext, false);
+			}
+		}
+		else
+		{
+			GroupData* gData = AlbumArt::GetGroupByPrefix(szToken);
+			if (gData != NULL)
+			{
+				// Get the path to download the file to (2nd token)
+				if (GetToken(pszNext, szSavePath, &pszNext, false))
+				{
+					if (_stricmp(szSavePath, "") != 0)
+					{
+						char szTrackPath[MAX_PATH];
+						// Get the albums name...
+						if (!gData->bIsOutOfBounds)
+						{
+							HWND hwndWA2 = FindWindow("Winamp v1.x", NULL);
+							if (hwndWA2 != NULL) // Winamp isn't running
+							{
+								int Track = SendMessage(hwndWA2, WM_USER, 0, 125);
+								HANDLE hWinamp;
+								ULONG dWinamp;
+
+								GetWindowThreadProcessId(hwndWA2, &dWinamp);
+								hWinamp = OpenProcess(PROCESS_VM_READ, false, dWinamp);
+								if (hWinamp != NULL)
+								{
+									void* winampTrack = (void*)SendMessage(hwndWA2, WM_USER, Track + gData->iTrackOffset, 211);
+									ReadProcessMemory(hWinamp, winampTrack, &szTrackPath, sizeof(szTrackPath), NULL);
+									if (szTrackPath[4] == ':')
+										StringCchCopy(szTrackPath, sizeof(szTrackPath), (LPCSTR)(szTrackPath + 7));
+									Utilities::GetExtendedWinampFileInfo(szTrackPath, "Album", szAlbumName, sizeof(szAlbumName));
+									CloseHandle(hWinamp);
+								}
+							}
+						}
+
+						// Let relative paths be relative to the folder
+						if (szSavePath[1] != ':') // If it's a relative path
+						{
+							StringCchCopy(szToken, sizeof(szToken), szSavePath);
+							StringCchCopy(szSavePath, sizeof(szSavePath), szTrackPath);
+							for (int i = sizeof(szSavePath); i > 0; i--)
+							{
+								if (szSavePath[i] == '\\')
+								{
+									szSavePath[++i] = 0;
+									break;
+								}
+							}
+							StringCchCat(szSavePath, sizeof(szSavePath), szToken);
+						}
+					}
+				}
+			}
+		}
+
+		// Download the cover, if appropriate
+		if (_stricmp(szSavePath, "") != 0)
+		{
+			if (_stricmp(szAlbumName, "") != 0)
+			{
+				DownLoadCoverData CoverData = {0};
+				StringCchCopy(CoverData.szAlbum, sizeof(CoverData.szAlbum), szAlbumName);
+				StringCchCopy(CoverData.szPath, sizeof(CoverData.szPath), szSavePath);
+
+				// Start the downloader thread
+				_beginthreadex(NULL, 0, AlbumArt_Download_Thread::DownloadCover_Thread, &CoverData, 0, &CoverData.threadID);
+
+				// We need to give the thread time to copy over the DownLoadCoverData struct to its own memory
+				while (!CoverData.bInitalized) // WaitForSingleObject is a pain...
+				{
+					Sleep(10);
+				}
+			}
+		}
+	}
+}

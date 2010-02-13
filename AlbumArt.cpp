@@ -403,8 +403,6 @@ void AlbumArt::DownloadCover(GroupData *gData, LPCSTR pszTrackPath)
 {
 	// Initialize a DownLoadCoverData to send to the downloader thread
 	DownLoadCoverData CoverData = {0};
-	CoverData.bTerminate = false;
-	CoverData.bInitalized = false;
 	CoverData.gData = gData;
 
 	// If a previous thread is still running, set it's bTerminate flag to true
@@ -455,8 +453,11 @@ unsigned __stdcall AlbumArt_Download_Thread::DownloadCover_Thread(void *CoverDat
 	memcpy(&cData, CoverData, sizeof(cData));
 
 	// Update the GroupData struct
-	cData.gData->threadbTerminate = &(cData.bTerminate);
-	cData.gData->bThreadIsRunning = true;
+	if (cData.gData != NULL)
+	{
+		cData.gData->threadbTerminate = &(cData.bTerminate);
+		cData.gData->bThreadIsRunning = true;
+	}
 
 	// Signal DownloadCover that we're done accessing it's data structures, and it may finish
 	((DownLoadCoverData*)CoverData)->bInitalized = true;
@@ -507,8 +508,11 @@ unsigned __stdcall AlbumArt_Download_Thread::DownloadCover_Thread(void *CoverDat
 		}
 	}
 
-	if (!cData.bTerminate) // If no new thread has been started yet, uncheck the threadrunnig flag in the groupdata struct
-		cData.gData->bThreadIsRunning = false;
+	if (cData.gData != NULL)
+	{
+		if (!cData.bTerminate) // If no new thread has been started yet, uncheck the threadrunnig flag in the groupdata struct
+			cData.gData->bThreadIsRunning = false;
+	}
 
 	return 0;
 }

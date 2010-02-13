@@ -106,14 +106,20 @@ LRESULT WINAPI MessageHandlerProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lP
 	case WM_DOWNLOADFINISHED:
 		{
 			GroupData *gData = (GroupData*)wParam;
-			LiteStep::ExecuteEvent(gData->szPrefix, "OnDownloadFinished");
-			AlbumArt::SetPath(gData, (LPCSTR)lParam);
+			if (gData != NULL)
+			{
+				LiteStep::ExecuteEvent(gData->szPrefix, "OnDownloadFinished");
+				AlbumArt::SetPath(gData, (LPCSTR)lParam);
+			}
 			return 0;
 		}
 	case WM_DOWNLOADSTARTED:
 		{
 			GroupData *gData = (GroupData*)wParam;
-			LiteStep::ExecuteEvent(gData->szPrefix, "OnDownloadStarted");
+			if (gData != NULL)
+			{
+				LiteStep::ExecuteEvent(gData->szPrefix, "OnDownloadStarted");
+			}
 			return 0;
 		}
 	}

@@ -33,5 +33,7 @@ namespace Bangs
 	void DeleteParseType(HWND hCaller, LPCSTR pszArgs);
 	void AddCoverName(HWND hCaller, LPCSTR pszArgs);
 	void DeleteCoverName(HWND hCaller, LPCSTR pszArgs);
+
+	void DownloadCover(HWND hCaller, LPCSTR pszArgs);
 }
 #endif
