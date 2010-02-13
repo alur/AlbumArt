@@ -1,4 +1,4 @@
-AlbumArt 1.5 by Alurcard2
+AlbumArt 1.6 by Alurcard2
 
 AlbumArt is intended to get cover art for the currently playing Winamp (or
 foobar) song. No other audio players are supported at this time.
