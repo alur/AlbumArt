@@ -61,7 +61,7 @@ Group Settings:
   * matches any characters (0 or more) and ? matches any single character. 
   
 (group)NoCRC (BOOL)
-- If this is set to true AlbumArt will execute OnAlbumArtChanged every time the
+- If this is set to true AlbumArt will execute (group)OnChange every time the
   track id changes, regardless of whether or not the cover has actually changed.
   Default: False
   
