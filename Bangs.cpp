@@ -3,6 +3,10 @@
 #include "utilities.h"
 #include "crc32.h"
 #include "LiteStep.h"
+#include <process.h>
+#include "constants.h"
+#include <stdlib.h>
+#include <strsafe.h>
 
 extern char g_szDebugMessage[];
 extern HWND g_hwndMessageHandler;

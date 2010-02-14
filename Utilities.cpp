@@ -1,3 +1,4 @@
+#include <id3/globals.h>
 #include "utilities.h"
 
 // Checks if a file exists

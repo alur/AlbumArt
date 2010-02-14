@@ -2,16 +2,10 @@
 #define ALBUMART_H
 
 #include <windows.h>
-#include <process.h>
-#include "lsapi.h"
-#include "id3\tag.h"
-#include "FLAC++\metadata.h"
-#include <string>
 #include <vector>
-#include <strsafe.h>
 #include <map>
-#include "curl\curl.h"
-#include "constants.h"
+#include <string>
+#include "lsapi.h"
 
 // Case insensitive string comparison
 struct stringicmp {

@@ -1,3 +1,6 @@
+#include "lsapi.h"
+#include <strsafe.h>
+#include <shlwapi.h>
 #include "LiteStep.h"
 
 extern HWND g_hParent;

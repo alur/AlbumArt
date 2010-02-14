@@ -2,7 +2,6 @@
 #define UTILITIES_H
 
 #include <windows.h>
-#include <id3/globals.h>
 
 namespace Utilities
 {

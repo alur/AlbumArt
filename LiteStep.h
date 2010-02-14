@@ -2,9 +2,6 @@
 #define LITESTEP_H
 
 #include <windows.h>
-#include "lsapi.h"
-#include <strsafe.h>
-#include <shlwapi.h>
 
 namespace LiteStep
 {

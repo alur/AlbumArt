@@ -1,3 +1,4 @@
+#include <fstream>
 #include "crc32.h"
 
 // Global Variables

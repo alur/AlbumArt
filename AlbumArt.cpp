@@ -1,7 +1,13 @@
+#include <process.h>
+#include "id3\tag.h"
+#include "FLAC++\metadata.h"
+#include "curl\curl.h"
+#include "constants.h"
 #include "albumart.h"
 #include "crc32.h"
 #include "utilities.h"
 #include "LiteStep.h"
+#include <strsafe.h>
 
 // Global variables
 GroupMap g_Groups;

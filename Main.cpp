@@ -1,4 +1,11 @@
+#include "albumart.h"
+#include "crc32.h"
+#include "bangs.h"
+#include "LiteStep.h"
 #include "main.h"
+#include "strsafe.h"
+#include "constants.h"
+#include "curl\curl.h"
 
 // Constants
 const char g_rcsRevision[]	= "1.7";

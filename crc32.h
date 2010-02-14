@@ -2,7 +2,6 @@
 #define CRC32_H
 
 #include <windows.h>
-#include <fstream>
 
 namespace CRC32
 {

@@ -3,8 +3,6 @@
 
 #include <windows.h>
 #include "lsapi.h"
-#include "constants.h"
-#include <stdlib.h>
 
 typedef struct BangItem {
 	char szName[54];
