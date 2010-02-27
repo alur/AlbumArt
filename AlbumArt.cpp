@@ -1,4 +1,5 @@
 #include <process.h>
+#include "mp4v2\mp4v2.h"
 #include "id3\tag.h"
 #include "FLAC++\metadata.h"
 #include "curl\curl.h"
@@ -330,6 +331,36 @@ bool AlbumArt::GetCoverFromTag(GroupData *gData, LPCSTR pszTrackPath, LPSTR szCo
 				fclose(fOutPut);
 				StringCchCopy(szCoverPath, cchCoverLength, gData->szParsedPath);
 				return true;
+			}
+		}
+
+		// No FLAC or ID3 found, try MP4 instead
+		for (std::vector<UCHAR>::const_iterator iter = gData->ParseTypes.begin(); iter != gData->ParseTypes.end(); iter++)
+		{
+			if (*iter == 3) // MP4 only seems to support cover art
+			{
+				MP4FileHandle mp4File = MP4Read(pszTrackPath, 0);
+				if (mp4File != NULL)
+				{
+					const MP4Tags* mp4Tag = MP4TagsAlloc();
+
+					MP4TagsFetch(mp4Tag, mp4File);
+					if (mp4Tag->artworkCount == 1)
+					{
+						FILE *fOutPut;
+						fopen_s(&fOutPut, gData->szParsedPath, "wb");
+						fwrite(mp4Tag->artwork->data, mp4Tag->artwork->size, 1, fOutPut);
+						fclose(fOutPut);
+						StringCchCopy(szCoverPath, cchCoverLength, gData->szParsedPath);
+						MP4TagsFree(mp4Tag);
+						MP4Close(mp4File);
+						return true;
+					}
+
+					MP4TagsFree(mp4Tag);
+					MP4Close(mp4File);
+				}
+				break;
 			}
 		}
 	}

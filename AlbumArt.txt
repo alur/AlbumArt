@@ -209,6 +209,7 @@ Changelog:
 -------------------------------------------------------------------------------
 v1.7 (2010-??-??)
 - Added AlbumArtFoobarFix to alleviate some foobar related problems.
+- Added support for MP4 files.
 
 v1.6 (2010-02-13)
 - Fixed typo problem with !AlbumArtSetAutoDownloadCoversTo which caused 
