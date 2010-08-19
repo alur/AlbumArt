@@ -1,18 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlbumArt", "AlbumArt.vcproj", "{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C09A8456-1469-4274-91D0-E6FEA893C926} = {C09A8456-1469-4274-91D0-E6FEA893C926}
-		{244EE88A-C11B-4E22-B8C3-6DDF7F04B111} = {244EE88A-C11B-4E22-B8C3-6DDF7F04B111}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlbumArt", "AlbumArt.vcxproj", "{01A0083B-AF2F-41AA-A5A9-B272DA6E5224}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "id3lib", "id3lib\libprj\id3lib.vcproj", "{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C09A8456-1469-4274-91D0-E6FEA893C926} = {C09A8456-1469-4274-91D0-E6FEA893C926}
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "id3lib", "id3lib\libprj\id3lib.vcxproj", "{244EE88A-C11B-4E22-B8C3-6DDF7F04B111}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "zlib\prj\zlib.vcproj", "{C09A8456-1469-4274-91D0-E6FEA893C926}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "zlib\prj\zlib.vcxproj", "{C09A8456-1469-4274-91D0-E6FEA893C926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
